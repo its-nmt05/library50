@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+{% if data["item_count"] %}
+    {% include "book-list.html" %}
+{% else %}
+    <div class="mb-3">
+        <img src="/static/logo.svg"></img>
+    </div>
+    <form action="/">
+        <div class="d-flex justify-content-center">
+            <div class="p-1">
+                <select name="filter" class="form-select" aria-label="Default select example">
+                    <option selected value="all">All</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="subject">Subject</option>
+                    <option value="text">Text</option>
+                    </select>
+            </div>
+            <div class="p-1">
+                <input autofocus autocomplete="off" class="form-control mx-auto w-auto" name="query"
+                    placeholder="Search Library50" type="text">
+            </div>
+        </div>
+    </form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Trending
+{% endblock %}
+
+{% block main %}
+    <div class="mb-5">
+        <h2>Trending now</h2>
+    </div>
+    {% if data["books"]|length > 0 %}
+        {% include "book-list.html" %}
+    {% else %}
+        <p>No data</p>
+{% endif %}
+{% endblock %}
