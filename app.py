@@ -50,7 +50,6 @@ def index():
             filter = "q"
         params = {
             filter: query,
-            "limit": LIMIT,
             "offset": offset,
             "page": int(page),
         }
@@ -61,34 +60,9 @@ def index():
     return render_template("index.html", data=data)
 
 
-@app.route("/trending", methods=["GET", "POST"])
+@app.route("/trending", methods=["GET"])
 @login_required
 def trending():
-
-    # user has entered this route via POST action (submitting a form)
-    if request.method == 'POST':
-        book_id = request.form.get("book_id")
-        loc = request.form.get("loc")
-
-        if loc == "remove":
-            db.execute(
-                "DELETE FROM saved WHERE user_id = ? AND book_id = ?",
-                session["user_id"], book_id
-            )
-
-        else:
-            # save book id to location
-            books = db.execute(
-                "SELECT * FROM saved WHERE user_id = ? AND book_id = ? AND location = ?",
-                session["user_id"], book_id, loc
-            )
-
-            if len(books) == 0:
-                db.execute(
-                    "INSERT INTO saved (user_id, book_id, location) VALUES (?, ?, ?)",
-                    session["user_id"], book_id, loc
-                )
-
     page = request.args.get("page", "1")
     offset = 0
     data = {}
@@ -99,7 +73,6 @@ def trending():
         page = 0
 
     params = {
-        "limit": LIMIT,
         "offset": offset,
         "page": int(page),
     }
@@ -250,6 +223,33 @@ def login():
         return render_template("login.html")
 
 
+@app.route("/add", methods=["POST"])
+def add():
+    book_id = request.form.get("book_id")
+    loc = request.form.get("loc")
+
+    if loc == "remove":
+        db.execute(
+            "DELETE FROM saved WHERE user_id = ? AND book_id = ?",
+            session["user_id"], book_id
+        )
+
+    else:
+        # save book id to location
+        books = db.execute(
+            "SELECT * FROM saved WHERE user_id = ? AND book_id = ? AND location = ?",
+            session["user_id"], book_id, loc
+        )
+
+        if len(books) == 0:
+            db.execute(
+                "INSERT INTO saved (user_id, book_id, location) VALUES (?, ?, ?)",
+                session["user_id"], book_id, loc
+            )
+    
+    return "Add"
+
+
 @app.route("/logout")
 def logout():
     """clear current session"""
@@ -258,9 +258,10 @@ def logout():
 
 
 @app.route("/about")
+@login_required
 def about():
     return render_template("about.html")
 
 
 if __name__ == "__main__":
-        app.run('0.0.0.0', port=5000, debug=True)
+    app.run(debug=True)

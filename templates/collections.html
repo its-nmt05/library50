@@ -11,6 +11,8 @@ Collections
     {% if data["books"]|length > 0 %}
         {% include "book-list.html" %}
     {% else %}
-        <p>No data</p>
-{% endif %}
+        <div class="my-3">
+            <img height="200" src="/static/no-data.svg"></img>
+        </div>
+    {% endif %}
 {% endblock %}
