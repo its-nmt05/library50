@@ -246,7 +246,7 @@ def add():
                 "INSERT INTO saved (user_id, book_id, location) VALUES (?, ?, ?)",
                 session["user_id"], book_id, loc
             )
-    
+
     return "Add"
 
 
@@ -264,4 +264,4 @@ def about():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)
