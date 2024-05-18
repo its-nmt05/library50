@@ -52,6 +52,7 @@ def index():
             filter: query,
             "offset": offset,
             "page": int(page),
+            "limit": LIMIT,
         }
         data.update(params)
         data.update(query_books(params))
@@ -75,6 +76,7 @@ def trending():
     params = {
         "offset": offset,
         "page": int(page),
+        "limit": LIMIT,
     }
     data.update(params)
     data.update(query_books(
