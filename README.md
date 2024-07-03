@@ -1,6 +1,9 @@
 ﻿# Library50
 
-![logo](static/logo.svg){style="display: block; margin: auto"}
+<p align="center">
+  <img src="static/logo-light.svg">
+</p>
+
 **Video Demo:** https://youtu.be/-gMBYMm3IUc
 **Github:** https://github.com/its-nmt05/library50
 **Description:** Library50 is a simple webapp that provides access to multiple books along with the ability to search them. The data is provided by [**Open library**](https://openlibrary.org/).
